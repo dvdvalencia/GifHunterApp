@@ -1,9 +1,9 @@
-import type { Gif } from "../../mock-data/gifs.mock";
+import type { Gif } from "../../gifs/interfaces/gif.interface";
 
 
 
 interface props {
-  gifs: Gif [];
+  gifs:  Gif[];
 }
 
 export const GifList = ({gifs}:props) => {
