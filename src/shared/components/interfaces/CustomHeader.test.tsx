@@ -22,9 +22,7 @@ describe("CustomHeader", () => {
 
   test("hould render the description when not provided", () => {
     const { container } = render(<CustomHeader title={title} />);
-
     const divElement = container.querySelector(".content-center");
-
     const h1 = divElement?.querySelector("h1");
 
     // console.log(h1?.innerHTML);
