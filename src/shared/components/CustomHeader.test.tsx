@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { CustomHeader } from "../CustomHeader";
+import { CustomHeader } from "./CustomHeader";
 
 describe("CustomHeader", () => {
   const title = "Test Title";
@@ -32,7 +32,7 @@ describe("CustomHeader", () => {
     const p = divElement?.querySelector("p");
     expect(p).toBeNull();
 
-    screen.debug();
+    // screen.debug();
 
     //container = render()
   });
