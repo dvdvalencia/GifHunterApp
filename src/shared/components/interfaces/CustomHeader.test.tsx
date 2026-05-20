@@ -8,32 +8,33 @@ describe("CustomHeader", () => {
   test("should render the title correctly", () => {
     render(<CustomHeader title={title} />);
 
-    expect(screen.getByText(title)).toBeDefined;
-    // screen.debug();
+    expect(screen.getByText(title)).toBeDefined();
   });
-  test("should render the description when provider ", () => {
+  test("should render the description when provided", () => {
     const description = "Test Description";
 
     render(<CustomHeader title={title} description={description} />);
 
-    // screen.debug();
-
-
-    expect(screen.getByText((description))).toBeDefined();
-    expect(screen.getByRole('paragraph')).toBeDefined();
-    expect(screen.getByRole('paragraph').innerHTML).toBe(description);
+    expect(screen.getByText(description)).toBeDefined();
+    expect(screen.getByRole("paragraph")).toBeDefined();
+    expect(screen.getByRole("paragraph").innerHTML).toBe(description);
   });
-  test("should render the description when not provider", () => {
 
-    const {container} = render(<CustomHeader title={title} />)
+  test("hould render the description when not provided", () => {
+    const { container } = render(<CustomHeader title={title} />);
 
-    const divElement = container.querySelector('.conten-center')
+    const divElement = container.querySelector(".content-center");
 
-    const h1 = divElement?.querySelector('h1');
-    
+    const h1 = divElement?.querySelector("h1");
+
+    // console.log(h1?.innerHTML);
+
     expect(h1?.innerHTML).toBe(title);
 
-    // screen.debug();
+    const p = divElement?.querySelector("p");
+    expect(p).toBeNull();
+
+    screen.debug();
 
     //container = render()
   });
