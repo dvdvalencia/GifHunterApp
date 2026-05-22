@@ -23,7 +23,7 @@ describe("useCounter", () => {
     expect(result.current.counter).toBe(11);
   });
 
-  test("shoul subtract counter when handleSubtract is called", () => {
+  test("shoul decrement counter when handleSubtract is called", () => {
     const { result } = renderHook(() => useCounter());
 
     act(() => {
