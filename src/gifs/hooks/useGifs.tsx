@@ -11,6 +11,7 @@ export const useGifs = () => {
   const gifsCache = useRef <Record<string, Gif[]>>({})
 
   const handleTermClicked = async (term: string) => {
+    // si existe un termino en el cache regresa el termino
     if (gifsCache.current[term]) {
       setGifs(gifsCache.current[term]);
       return;
@@ -18,6 +19,7 @@ export const useGifs = () => {
  
     const gifs = await getGifsByQuery(term);
     setGifs(gifs);
+    gifsCache.current[term] = gifs;
   };
 
   const handleSearch = async (query: string) => {

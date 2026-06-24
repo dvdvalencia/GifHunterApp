@@ -1,7 +1,8 @@
 import { renderHook } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { useGifs } from "./useGifs";
 import { act } from "react";
+import * as gifActions from "../actions/get-gifs-by-query.action";
 
 describe("useGifs", () => {
   test("should return default values and methods", () => {
@@ -26,7 +27,7 @@ describe("useGifs", () => {
     expect(result.current.gifs.length).toBe(10);
   });
 
-  test ('should return a list of gifs when handleTermClicked is called', async() =>{
+  test("should return a list of gifs when handleTermClicked is called", async () => {
     const { result } = renderHook(() => useGifs());
 
     await act(async () => {
@@ -36,5 +37,81 @@ describe("useGifs", () => {
     // expect(result.current.gifs.length).toBeDefined()
     expect(result.current.gifs.length).toBe(10);
   });
- 
+
+  test("shoudl return a list of gifs from cache", async () => {
+    const { result } = renderHook(() => useGifs());
+
+    // COMPROBANDO LA EJECUCION CORRECTA DEL ERROR EN EL ESPIA
+    //     vi.spyOn(gifActions, "getGifsByQuery").mockRejectedValue(
+    //   new Error("This is my custom error"),
+    // );
+
+    await act(async () => {
+      await result.current.handleSearch("goku");
+    });
+
+    // expect(result.current.gifs.length).toBeDefined()
+    expect(result.current.gifs.length).toBe(10);
+
+    vi.spyOn(gifActions, "getGifsByQuery").mockRejectedValue(
+      new Error("This is my custom error"),
+    );
+  });
+
+  test("should return on more that 8 previous term", async () => {
+    const { result } = renderHook(() => useGifs());
+
+    vi.spyOn(gifActions, "getGifsByQuery").mockResolvedValue([]);
+
+    await act(async () => {
+      await result.current.handleSearch("goku1");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku2");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku3");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku4");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku5");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku6");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku7");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku8");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("goku9");
+    });
+
+    expect(result.current.previousTerms.length).toBe(8);
+
+    expect(result.current.previousTerms).toStrictEqual([
+      "goku9",
+      "goku8",
+      "goku7",
+      "goku6",
+      "goku5",
+      "goku4",
+      "goku3",
+      "goku2",
+    ]);
+
+    console.log(result.current.previousTerms);
+  });
 });
