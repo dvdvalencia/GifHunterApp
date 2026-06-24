@@ -55,7 +55,7 @@ describe("getGifsByQuery", () => {
 
     const gifs = await getGifsByQuery("");
 
-    console.log(gifs);
+    // console.log(gifs);
     expect(gifs.length).toBe(0);
   });
 
@@ -72,7 +72,7 @@ describe("getGifsByQuery", () => {
     });
 
     const gifs = await getGifsByQuery("goku");
-    console.log("Hola Mundo");
+    // console.log("Hola Mundo");
 
     expect(gifs.length).toBe(0);
 

@@ -112,6 +112,6 @@ describe("useGifs", () => {
       "goku2",
     ]);
 
-    console.log(result.current.previousTerms);
+    // console.log(result.current.previousTerms);
   });
 });

@@ -15,8 +15,6 @@ export const SearchBar = ({ placeholder = "Buscar", onQuery }: props) => {
 
     // console.log('Hola desde el Efecto');
 
-    // onQuery(query);
-
     return () => {
       clearTimeout(timeutId);
     };
